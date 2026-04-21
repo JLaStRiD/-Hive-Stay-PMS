@@ -1,143 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>HiveStay PMS</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #0f172a;
-      color: white;
-      display: flex;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 220px;
-      background: #111827;
-      height: 100vh;
-      padding: 20px;
-    }
-
-    .sidebar h2 {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .menu button {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      background: #1f2937;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    /* MAIN */
-    .main {
-      flex: 1;
-      padding: 20px;
-    }
-
-    /* CARDS */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 12px;
-    }
-
-    /* ROOMS */
-    .room {
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .available { background: #16a34a; }
-    .occupied { background: #dc2626; }
-    .cleaning { background: #eab308; color: black; }
-
-    /* HEADER */
-    .header {
-      margin-bottom: 20px;
-    }
-
-    .header h1 {
-      margin: 0;
-    }
-
-    .small {
-      color: #94a3b8;
-    }
-
-    /* BUTTON */
-    .btn {
-      padding: 10px;
-      background: #4f46e5;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
-<body>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <h2>🏨 HiveStay PMS</h2>
-
-  <div class="menu">
-    <button onclick="showDashboard()">Dashboard</button>
-    <button onclick="showRooms()">Rooms</button>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main" id="main">
-
-  <div class="header">
-    <h1>Dashboard</h1>
-    <p class="small">Home Crest Hotel System</p>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Occupancy</h3>
-      <p>65%</p>
-    </div>
-
-    <div class="card">
-      <h3>Revenue</h3>
-      <p>₱12,500</p>
-    </div>
-
-    <div class="card">
-      <h3>Rooms</h3>
-      <p>24 Active</p>
-    </div>
-
-    <div class="card">
-      <h3>Bookings</h3>
-      <p>12 Today</p>
-    </div>
-  </div>
-
-</div>
-
 <script>
+let rooms = [
+  { id: 101, status: "Available" },
+  { id: 102, status: "Occupied" },
+  { id: 103, status: "Cleaning" }
+];
+
+let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+function saveBookings() {
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+}
+
 function showDashboard(){
   document.getElementById("main").innerHTML = `
     <div class="header">
@@ -148,31 +21,87 @@ function showDashboard(){
     <div class="grid">
       <div class="card"><h3>Occupancy</h3><p>65%</p></div>
       <div class="card"><h3>Revenue</h3><p>₱12,500</p></div>
-      <div class="card"><h3>Rooms</h3><p>24 Active</p></div>
-      <div class="card"><h3>Bookings</h3><p>12 Today</p></div>
+      <div class="card"><h3>Rooms</h3><p>${rooms.length} Active</p></div>
+      <div class="card"><h3>Bookings</h3><p>${bookings.length} Total</p></div>
     </div>
   `;
 }
 
 function showRooms(){
+  let roomHTML = rooms.map(r => `
+    <div class="room ${r.status.toLowerCase()}">
+      Room ${r.id} - ${r.status}
+    </div>
+  `).join("");
+
   document.getElementById("main").innerHTML = `
     <div class="header">
       <h1>Rooms</h1>
-      <p class="small">Click room to view status</p>
+      <p class="small">Click to book a room</p>
     </div>
 
     <div class="card">
-      <div class="room available">Room 101 - Available</div>
-      <div class="room occupied">Room 102 - Occupied</div>
-      <div class="room cleaning">Room 103 - Cleaning</div>
+      ${roomHTML}
 
-      <button class="btn" onclick="alert('Booking feature next upgrade 🚀')">
-        + New Booking
+      <hr>
+
+      <h3>📅 New Booking</h3>
+
+      <input id="guest" placeholder="Guest Name" style="padding:8px;width:100%;margin-bottom:5px;">
+      <input id="room" placeholder="Room Number (101)" style="padding:8px;width:100%;margin-bottom:5px;">
+
+      <button class="btn" onclick="bookRoom()">
+        Confirm Booking
       </button>
+
+      <h3>📋 Bookings</h3>
+      <div id="bookingList"></div>
     </div>
   `;
+
+  renderBookings();
+}
+
+function bookRoom(){
+  let guest = document.getElementById("guest").value;
+  let room = document.getElementById("room").value;
+
+  if(!guest || !room){
+    alert("Fill all fields");
+    return;
+  }
+
+  // add booking
+  bookings.push({ guest, room, date: new Date().toLocaleString() });
+  saveBookings();
+
+  // update room status
+  rooms = rooms.map(r => {
+    if(r.id == room){
+      return { ...r, status: "Occupied" };
+    }
+    return r;
+  });
+
+  alert("Room Booked Successfully!");
+
+  showRooms();
+}
+
+function renderBookings(){
+  let list = document.getElementById("bookingList");
+
+  if(bookings.length === 0){
+    list.innerHTML = "<p>No bookings yet</p>";
+    return;
+  }
+
+  list.innerHTML = bookings.map(b => `
+    <div class="card">
+      <b>${b.guest}</b><br>
+      Room: ${b.room}<br>
+      <small>${b.date}</small>
+    </div>
+  `).join("");
 }
 </script>
-
-</body>
-</html>
