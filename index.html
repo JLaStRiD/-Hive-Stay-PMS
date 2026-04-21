@@ -174,16 +174,39 @@ function renderBookings(){
     return;
   }
 
-  list.innerHTML = bookings.map(b => `
-    <div class="card">
-      <b>${b.guest}</b><br>
-      Room: ${b.room}<br>
-      <small>${b.date}</small>
-    </div>
-  `).join("");
+list.innerHTML = bookings.map((b, index) => `
+  <div class="card">
+    <b>${b.guest}</b><br>
+    Room: ${b.room}<br>
+    <small>${b.date}</small><br>
+
+    <button onclick="checkout(${index})" class="btn">
+      Check-out
+    </button>
+  </div>
+`).join("");  
 }
 </script>
-    /* HEADER */
+   function checkout(index){
+  let roomNumber = bookings[index].room;
+
+  // remove booking
+  bookings.splice(index, 1);
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+
+  // update room back to Available
+  rooms = rooms.map(r => {
+    if(r.id == roomNumber){
+      return { ...r, status: "Available" };
+    }
+    return r;
+  });
+
+  alert("Guest Checked-out!");
+
+  showRooms();
+             } 
+  /* HEADER */
     .header {
       margin-bottom: 20px;
     }
