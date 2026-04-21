@@ -3,25 +3,82 @@
 <head>
   <title>Home Crest Hotel PMS</title>
   <style>
-    body { font-family: Arial; background:#f6f7fb; padding:20px; }
-    .card { background:white; padding:20px; border-radius:10px; margin-top:10px; }
-    button { padding:10px; margin:5px; }
+    body {
+      font-family: Arial;
+      background: #f4f6fb;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+    }
+
+    .nav button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      background: #4f46e5;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      background: #f9fafb;
+      padding: 15px;
+      border-radius: 10px;
+    }
   </style>
 </head>
+
 <body>
 
 <h1>🏨 Home Crest Hotel PMS</h1>
 <p>HiveStay MVP System</p>
 
-<div>
+<div class="nav">
   <button onclick="show('dashboard')">Dashboard</button>
   <button onclick="show('rooms')">Rooms</button>
 </div>
 
 <div id="content" class="card">
   <h2>📊 Dashboard</h2>
-  <p>Occupancy: 65%</p>
-  <p>Revenue: ₱12,500</p>
+
+  <div class="grid">
+    <div class="stat">
+      <h3>Occupancy</h3>
+      <p>65%</p>
+    </div>
+
+    <div class="stat">
+      <h3>Revenue</h3>
+      <p>₱12,500</p>
+    </div>
+
+    <div class="stat">
+      <h3>Rooms</h3>
+      <p>24 Active</p>
+    </div>
+
+    <div class="stat">
+      <h3>Bookings</h3>
+      <p>12 Today</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -29,9 +86,22 @@ function show(page){
   let c = document.getElementById("content");
 
   if(page==="rooms"){
-    c.innerHTML = "<h2>🛏 Rooms</h2><p>101 Available</p><p>102 Occupied</p>";
+    c.innerHTML = `
+      <h2>🛏 Rooms</h2>
+      <p>101 - Available</p>
+      <p>102 - Occupied</p>
+      <p>103 - Cleaning</p>
+    `;
   } else {
-    c.innerHTML = "<h2>📊 Dashboard</h2><p>Occupancy: 65%</p><p>Revenue: ₱12,500</p>";
+    c.innerHTML = `
+      <h2>📊 Dashboard</h2>
+      <div class="grid">
+        <div class="stat"><h3>Occupancy</h3><p>65%</p></div>
+        <div class="stat"><h3>Revenue</h3><p>₱12,500</p></div>
+        <div class="stat"><h3>Rooms</h3><p>24 Active</p></div>
+        <div class="stat"><h3>Bookings</h3><p>12 Today</p></div>
+      </div>
+    `;
   }
 }
 </script>
