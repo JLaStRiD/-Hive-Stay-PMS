@@ -56,17 +56,113 @@
     }
 
     /* ROOMS */
-    .room {
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-      cursor: pointer;
+<script>
+let rooms = [
+  { id: 101, status: "Available" },
+  { id: 102, status: "Occupied" },
+  { id: 103, status: "Cleaning" }
+];
+
+let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+function saveBookings() {
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+}
+
+function showDashboard(){
+  document.getElementById("main").innerHTML = `
+    <div class="header">
+      <h1>Dashboard</h1>
+      <p class="small">Home Crest Hotel System</p>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h3>Occupancy</h3><p>65%</p></div>
+      <div class="card"><h3>Revenue</h3><p>₱12,500</p></div>
+      <div class="card"><h3>Rooms</h3><p>${rooms.length} Active</p></div>
+      <div class="card"><h3>Bookings</h3><p>${bookings.length} Total</p></div>
+    </div>
+  `;
+}
+
+function showRooms(){
+  let roomHTML = rooms.map(r => `
+    <div class="room ${r.status.toLowerCase()}">
+      Room ${r.id} - ${r.status}
+    </div>
+  `).join("");
+
+  document.getElementById("main").innerHTML = `
+    <div class="header">
+      <h1>Rooms</h1>
+      <p class="small">Click to book a room</p>
+    </div>
+
+    <div class="card">
+      ${roomHTML}
+
+      <hr>
+
+      <h3>📅 New Booking</h3>
+
+      <input id="guest" placeholder="Guest Name" style="padding:8px;width:100%;margin-bottom:5px;">
+      <input id="room" placeholder="Room Number (101)" style="padding:8px;width:100%;margin-bottom:5px;">
+
+      <button class="btn" onclick="bookRoom()">
+        Confirm Booking
+      </button>
+
+      <h3>📋 Bookings</h3>
+      <div id="bookingList"></div>
+    </div>
+  `;
+
+  renderBookings();
+}
+
+function bookRoom(){
+  let guest = document.getElementById("guest").value;
+  let room = document.getElementById("room").value;
+
+  if(!guest || !room){
+    alert("Fill all fields");
+    return;
+  }
+
+  // add booking
+  bookings.push({ guest, room, date: new Date().toLocaleString() });
+  saveBookings();
+
+  // update room status
+  rooms = rooms.map(r => {
+    if(r.id == room){
+      return { ...r, status: "Occupied" };
     }
+    return r;
+  });
 
-    .available { background: #16a34a; }
-    .occupied { background: #dc2626; }
-    .cleaning { background: #eab308; color: black; }
+  alert("Room Booked Successfully!");
 
+  showRooms();
+}
+
+function renderBookings(){
+  let list = document.getElementById("bookingList");
+
+  if(bookings.length === 0){
+    list.innerHTML = "<p>No bookings yet</p>";
+    return;
+  }
+
+  list.innerHTML = bookings.map(b => `
+    <div class="card">
+      <b>${b.guest}</b><br>
+      Room: ${b.room}<br>
+      <small>${b.date}</small>
+    </div>
+  `).join("");
+}
+</script>
     /* HEADER */
     .header {
       margin-bottom: 20px;
