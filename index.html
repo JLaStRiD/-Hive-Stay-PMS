@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Crest Hotel PMS</title>
+  <style>
+    body { font-family: Arial; background:#f6f7fb; padding:20px; }
+    .card { background:white; padding:20px; border-radius:10px; margin-top:10px; }
+    button { padding:10px; margin:5px; }
+  </style>
+</head>
+<body>
 
+<h1>🏨 Home Crest Hotel PMS</h1>
+<p>HiveStay MVP System</p>
+
+<div>
+  <button onclick="show('dashboard')">Dashboard</button>
+  <button onclick="show('rooms')">Rooms</button>
+</div>
+
+<div id="content" class="card">
+  <h2>📊 Dashboard</h2>
+  <p>Occupancy: 65%</p>
+  <p>Revenue: ₱12,500</p>
+</div>
+
+<script>
+function show(page){
+  let c = document.getElementById("content");
+
+  if(page==="rooms"){
+    c.innerHTML = "<h2>🛏 Rooms</h2><p>101 Available</p><p>102 Occupied</p>";
+  } else {
+    c.innerHTML = "<h2>📊 Dashboard</h2><p>Occupancy: 65%</p><p>Revenue: ₱12,500</p>";
+  }
+}
+</script>
+
+</body>
+</html>
