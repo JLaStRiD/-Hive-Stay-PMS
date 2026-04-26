@@ -35,9 +35,13 @@ function updateDashboard() {
 
   let occupancy = rooms.length ? (occupied / rooms.length) * 100 : 0;
 
+  // 💰 REVENUE LOGIC
+  let revenue = occupied * 1500;
+
   setText("occ", Math.round(occupancy) + "%");
   setText("occupied", occupied);
   setText("available", available);
+  setText("rev", revenue);
 }
 
 // helper
