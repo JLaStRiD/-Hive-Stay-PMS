@@ -1,9 +1,15 @@
+/* ======================
+   BASE
+====================== */
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
+  background: #F5F7FA;
 }
 
-/* LOGIN */
+/* ======================
+   LOGIN
+====================== */
 .login-body {
   display: flex;
   justify-content: center;
@@ -19,56 +25,16 @@ body {
   width: 300px;
 }
 
-/* DASHBOARD */
-.sidebar {
-  width: 200px;
-  height: 100vh;
-  background: #1E3A5F;
-  color: white;
-  float: left;
-  padding: 20px;
-}
-
-.main {
-  margin-left: 220px;
-  padding: 20px;
-}
-
-.cards {
-  display: flex;
-  gap: 10px;
-}
-
-.card {
-  background: #f4f4f4;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-/* ROOMS */
-.rooms {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 10px;
-}
-
-.room {
-  padding: 15px;
-  text-align: center;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-}
-
-.available { background: #2ECC71; }
-.occupied { background: #E74C3C; }
-/* LAYOUT */
+/* ======================
+   LAYOUT
+====================== */
 .layout {
   display: flex;
-  font-family: Arial;
 }
 
-/* SIDEBAR */
+/* ======================
+   SIDEBAR
+====================== */
 .sidebar {
   width: 220px;
   background: #1E3A5F;
@@ -81,20 +47,24 @@ body {
   padding: 10px;
   margin: 5px 0;
   cursor: pointer;
+  border-radius: 6px;
 }
 
 .menu div:hover {
   background: rgba(255,255,255,0.1);
 }
 
-/* MAIN */
+/* ======================
+   MAIN
+====================== */
 .main {
   flex: 1;
   padding: 20px;
-  background: #F5F7FA;
 }
 
-/* TOPBAR */
+/* ======================
+   TOPBAR
+====================== */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -103,7 +73,9 @@ body {
   border-radius: 10px;
 }
 
-/* CARDS */
+/* ======================
+   STATS CARDS
+====================== */
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -116,27 +88,48 @@ body {
   padding: 15px;
   border-radius: 10px;
   font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* ROOM GRID */
+/* ======================
+   ROOM GRID
+====================== */
 .room-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-/* ROOMS */
+/* ======================
+   ROOM BOX
+====================== */
 .room {
   padding: 10px;
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
   color: white;
+  transition: 0.2s;
+  font-size: 14px;
 }
 
-.available { background: #2ECC71; }
-.occupied { background: #E74C3C; }
+.room:hover {
+  transform: scale(1.05);
+}
+
+/* STATUS COLORS */
+.available {
+  background: #2ECC71;
+}
+
+.occupied {
+  background: #E74C3C;
+}
+
+/* ======================
+   MODAL
+====================== */
 .modal {
   display: none;
   position: fixed;
@@ -149,8 +142,8 @@ body {
 
 .modal-content {
   background: white;
-  width: 300px;
-  margin: 10% auto;
+  width: 320px;
+  margin: 12% auto;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -158,12 +151,20 @@ body {
 
 .modal-content input {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 .modal-buttons button {
   margin: 5px;
   padding: 8px 12px;
   cursor: pointer;
-    }
+  border: none;
+  border-radius: 6px;
+}
+
+.modal-buttons button:hover {
+  opacity: 0.9;
+}
