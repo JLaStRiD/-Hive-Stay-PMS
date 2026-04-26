@@ -35,7 +35,7 @@ function updateDashboard() {
   let occupied = rooms.filter(r => r.status === "occupied").length;
   let available = rooms.filter(r => r.status === "available").length;
 
-  let occ = (occupied / rooms.length) * 100;
+  let occ = rooms.length ? (occupied / rooms.length) * 100 : 0;
 
   let set = (id, val) => {
     let el = document.getElementById(id);
@@ -48,7 +48,7 @@ function updateDashboard() {
 }
 
 // ======================
-// RENDER ROOMS (MAIN CLICK SYSTEM)
+// RENDER ROOMS
 // ======================
 function renderRooms() {
 
@@ -61,61 +61,23 @@ function renderRooms() {
 
     let div = document.createElement("div");
     div.className = "room " + r.status;
-    div.innerText = r.number;
 
-    div.onclick = function () {
-      handleRoom(r.number);
-    };
+    div.innerHTML = `
+      <strong>${r.number}</strong><br>
+      <small>${r.guest || "No Guest"}</small>
+    `;
+
+    div.onclick = () => handleRoom(r.number);
 
     container.appendChild(div);
   });
 }
 
 // ======================
-// ROOM ACTION (BOOK + CHECKOUT)
+// MODAL SYSTEM ONLY (FINAL)
 // ======================
-function handleRoom(roomNo) {
-
-  let room = rooms.find(r => r.number === roomNo);
-  if (!room) return;
-
-  if (room.status === "available") {
-
-    let name = prompt("Guest Name:");
-    if (!name || name.trim() === "") return;
-
-    room.status = "occupied";
-    room.guest = name.trim();
-
-  } else {
-
-    let out = confirm("Checkout room?");
-    if (!out) return;
-
-    room.status = "available";
-    room.guest = "";
-  }
-
-  updateDashboard();
-  renderRooms();
-}
-
-// ======================
-// INIT (IMPORTANT FIX)
-// ======================
-window.onload = function () {
-
-  if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "index.html";
-    return;
-  }
-
-  updateDashboard();
-  renderRooms();
-};
 let selectedRoom = null;
 
-// OPEN MODAL
 function handleRoom(roomNo) {
 
   selectedRoom = rooms.find(r => r.number === roomNo);
@@ -126,35 +88,27 @@ function handleRoom(roomNo) {
     "Room " + selectedRoom.number + " (" + selectedRoom.status + ")";
 }
 
-// CLOSE MODAL
 function closeModal() {
   document.getElementById("roomModal").style.display = "none";
   document.getElementById("guestName").value = "";
 }
 
-// CHECK-IN
 function confirmCheckIn() {
 
   let name = document.getElementById("guestName").value;
 
-  if (!name || name.trim() === "") {
-    alert("Please enter guest name");
-    return;
-  }
+  if (!name || name.trim() === "") return;
 
   if (selectedRoom.status === "available") {
-
     selectedRoom.status = "occupied";
     selectedRoom.guest = name.trim();
 
     updateDashboard();
     renderRooms();
-
     closeModal();
   }
 }
 
-// CHECK-OUT
 function confirmCheckOut() {
 
   if (!selectedRoom) return;
@@ -166,10 +120,15 @@ function confirmCheckOut() {
 
     updateDashboard();
     renderRooms();
-
     closeModal();
   }
-                            }
+}
+
+// ======================
+// INIT (ONLY ONE)
+// ======================
+window.onload = function () {
+
   if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "index.html";
     return;
