@@ -34,7 +34,8 @@ function updateDashboard() {
   let available = rooms.filter(r => r.status === "available").length;
 
   let occupancy = rooms.length ? (occupied / rooms.length) * 100 : 0;
-// 💰 REVENUE LOGIC
+
+  // 💰 Revenue
   let revenue = occupied * 1500;
 
   setText("occ", Math.round(occupancy) + "%");
@@ -42,6 +43,7 @@ function updateDashboard() {
   setText("available", available);
   setText("rev", revenue);
 }
+
 // helper
 function setText(id, value) {
   let el = document.getElementById(id);
@@ -88,10 +90,11 @@ function openRoomModal(roomNo) {
   if (!selectedRoom) return;
 
   document.getElementById("roomModal").style.display = "block";
+
   document.getElementById("modalRoomText").innerText =
     `Room ${selectedRoom.number} - ${selectedRoom.status}`;
 
-  document.getElementById("guestName").value = "";
+  document.getElementById("guestName").value = selectedRoom.guest || "";
 }
 
 // ======================
@@ -108,21 +111,19 @@ function confirmCheckIn() {
 
   let name = document.getElementById("guestName").value;
 
+  if (!selectedRoom) return;
+
   if (!name || name.trim() === "") {
     alert("Please enter guest name");
     return;
   }
 
-  if (!selectedRoom) return;
+  selectedRoom.status = "occupied";
+  selectedRoom.guest = name.trim();
 
-  if (selectedRoom.status === "available") {
-    selectedRoom.status = "occupied";
-    selectedRoom.guest = name.trim();
-
-    updateDashboard();
-    renderRooms();
-    closeModal();
-  }
+  updateDashboard();
+  renderRooms();
+  closeModal();
 }
 
 // ======================
@@ -132,13 +133,32 @@ function confirmCheckOut() {
 
   if (!selectedRoom) return;
 
-  if (selectedRoom.status === "occupied") {
+  selectedRoom.status = "available";
+  selectedRoom.guest = "";
 
-    selectedRoom.status = "available";
-    selectedRoom.guest = "";
+  updateDashboard();
+  renderRooms();
+  closeModal();
+}
 
-    updateDashboard();
-    renderRooms();
-    closeModal();
+// ======================
+// RESERVE ROOM
+// ======================
+function reserveRoom() {
+
+  let name = document.getElementById("guestName").value;
+
+  if (!selectedRoom) return;
+
+  if (!name || name.trim() === "") {
+    alert("Please enter guest name");
+    return;
   }
-      }
+
+  selectedRoom.status = "reserved";
+  selectedRoom.guest = name.trim();
+
+  updateDashboard();
+  renderRooms();
+  closeModal();
+}
