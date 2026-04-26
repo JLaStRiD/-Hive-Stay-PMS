@@ -8,40 +8,42 @@
 <body>
 
 <div class="layout">
-<!-- MODAL -->
-<div id="roomModal" class="modal">
 
-  <div class="modal-content">
+  <!-- MODAL -->
+  <div id="roomModal" class="modal">
+    <div class="modal-content">
 
-    <h3>🏨 Room Action</h3>
+      <h3>🏨 Room Action</h3>
 
-    <p id="modalRoomText"></p>
+      <p id="modalRoomText"></p>
 
-    <input id="guestName" placeholder="Enter Guest Name">
+      <input id="guestName" placeholder="Enter Guest Name">
 
-    <div class="modal-buttons">
+      <div class="modal-buttons">
 
-      <button onclick="confirmCheckIn()">Check-In</button>
-      <button onclick="confirmCheckOut()">Check-Out</button>
-      <button onclick="closeModal()">Cancel</button>
+        <button onclick="confirmCheckIn()">Check-In</button>
+        <button onclick="confirmCheckOut()">Check-Out</button>
+        <button onclick="closeModal()">Cancel</button>
+
+      </div>
 
     </div>
-
   </div>
 
-</div>
   <!-- SIDEBAR -->
   <div class="sidebar">
+
     <h2>🏨 HiveStay PMS</h2>
 
     <div class="menu">
       <div onclick="renderRooms()">🏠 Dashboard</div>
-      <div>🛏 Rooms</div>
+      <div onclick="renderRooms()">🛏 Rooms</div>
       <div>📅 Reservations</div>
       <div>💰 Billing</div>
       <div>📊 Reports</div>
       <div>⚙ Settings</div>
     </div>
+
   </div>
 
   <!-- MAIN -->
@@ -53,7 +55,7 @@
       <div>Admin 👤</div>
     </div>
 
-    <!-- STATS CARDS -->
+    <!-- STATS -->
     <div class="cards">
 
       <div class="card">
@@ -78,8 +80,9 @@
 
     </div>
 
-    <!-- ROOM SECTION -->
+    <!-- ROOM GRID -->
     <h3 style="margin-top:20px;">🏨 Room Status</h3>
+
     <div id="roomsContainer" class="room-grid"></div>
 
   </div>
