@@ -1,10 +1,25 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #eef2f7;
 }
 
-/* SIDEBAR */
+/* LOGIN */
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #1E3A5F;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+/* DASHBOARD */
 .sidebar {
   width: 200px;
   height: 100vh;
@@ -14,40 +29,27 @@ body {
   padding: 20px;
 }
 
-.sidebar button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background: #2ECC71;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-/* MAIN */
 .main {
   margin-left: 220px;
   padding: 20px;
 }
 
-/* CARDS */
 .cards {
   display: flex;
   gap: 10px;
 }
 
 .card {
-  background: white;
+  background: #f4f4f4;
   padding: 15px;
   border-radius: 10px;
 }
 
-/* ROOMS GRID */
+/* ROOMS */
 .rooms {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: 10px;
-  margin-top: 20px;
 }
 
 .room {
@@ -58,6 +60,5 @@ body {
   cursor: pointer;
 }
 
-/* STATUS COLORS */
 .available { background: #2ECC71; }
 .occupied { background: #E74C3C; }
