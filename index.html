@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home Crest Login</title>
+  <title>HiveStay PMS Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="login-body">
 
   <div class="login-box">
-    <h2>🏨 Home Crest PMS</h2>
+    <h2>🏨 HiveStay PMS</h2>
 
     <input id="user" placeholder="Username">
     <input id="pass" type="password" placeholder="Password">
@@ -17,6 +17,13 @@
   </div>
 
   <script src="script.js"></script>
+
+  <!-- AUTO REDIRECT IF LOGGED IN -->
+  <script>
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.href = "dashboard.html";
+    }
+  </script>
 
 </body>
 </html>
