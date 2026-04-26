@@ -1,5 +1,18 @@
 function login() {
 // ======================
+// DASHBOARD UPDATER
+// ======================
+function updateDashboard() {
+
+  let occupied = rooms.filter(r => r.status === "occupied").length;
+  let available = rooms.filter(r => r.status === "available").length;
+
+  document.getElementById("occ").innerText =
+    Math.round((occupied / rooms.length) * 100) + "%";
+
+  document.getElementById("guests").innerText = occupied;
+}  
+// ======================
 // LOGIN SYSTEM
 // ======================
 function login() {
