@@ -110,6 +110,8 @@ function openRoomModal(roomNo) {
     `Room ${selectedRoom.number} - ${selectedRoom.status}`;
 
   document.getElementById("guestName").value = selectedRoom.guest || "";
+document.getElementById("extraCharge").value = 0;
+calculateBill();
 }
 
 // ======================
