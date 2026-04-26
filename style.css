@@ -62,3 +62,78 @@ body {
 
 .available { background: #2ECC71; }
 .occupied { background: #E74C3C; }
+/* LAYOUT */
+.layout {
+  display: flex;
+  font-family: Arial;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #1E3A5F;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+
+.menu div {
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.menu div:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+  background: #F5F7FA;
+}
+
+/* TOPBAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* ROOM GRID */
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* ROOMS */
+.room {
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+}
+
+.available { background: #2ECC71; }
+.occupied { background: #E74C3C; }
