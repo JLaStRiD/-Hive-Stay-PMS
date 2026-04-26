@@ -137,3 +137,33 @@ body {
 
 .available { background: #2ECC71; }
 .occupied { background: #E74C3C; }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background: white;
+  width: 300px;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.modal-buttons button {
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+    }
