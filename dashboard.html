@@ -29,5 +29,9 @@
 </div>
 
 <script src="script.js"></script>
+// protect dashboard access
+if (localStorage.getItem("loggedIn") !== "true") {
+  window.location.href = "index.html";
+}
 </body>
 </html>
