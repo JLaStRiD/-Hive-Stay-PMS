@@ -1,3 +1,54 @@
+// ======================
+// ROOMS DATA
+// ======================
+let rooms = [];
+
+for (let i = 101; i <= 167; i++) {
+  rooms.push({
+    number: i,
+    status: "available",
+    guest: ""
+  });
+}
+
+
+// ======================
+// LOGIN FUNCTION (TOP)
+// ======================
+function login() {
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
+
+  if (u === "admin" && p === "1234") {
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Wrong credentials");
+  }
+}
+
+
+// ======================
+// DASHBOARD UPDATE
+// ======================
+function updateDashboard() {
+  // logic here
+}
+
+
+// ======================
+// SHOW ROOMS
+// ======================
+function showRooms() {
+  // your room UI
+}
+
+
+// ======================
+// BOOK ROOM
+// ======================
+function bookRoom(roomNo) {
+  // booking logic
+}
 function login() {
 // ======================
 // ENHANCED DASHBOARD UPDATER
