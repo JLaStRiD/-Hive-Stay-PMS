@@ -180,3 +180,30 @@ function refresh() {
   renderRooms();
   closeModal();
     }
+// ======================
+// RENDER RESERVATION TABLE
+// ======================
+function renderReservationTable() {
+
+  let table = document.querySelector("#reservationTable tbody");
+  if (!table) return;
+
+  table.innerHTML = "";
+
+  rooms.forEach(room => {
+
+    if (room.status !== "available") {
+
+      let row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${room.guest}</td>
+        <td>${room.number}</td>
+        <td>${room.status}</td>
+      `;
+
+      table.appendChild(row);
+    }
+
+  });
+}
