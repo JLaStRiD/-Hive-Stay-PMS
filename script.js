@@ -18,8 +18,8 @@ function init() {
   generateRooms();
   updateDashboard();
   renderRooms();
+  renderReservationTable(); // 🔥 ADD THIS
 }
-
 // ======================
 // ROOMS DATA (67 ROOMS)
 // ======================
@@ -178,8 +178,9 @@ function reserveRoom() {
 function refresh() {
   updateDashboard();
   renderRooms();
+  renderReservationTable(); // 🔥 ADD THIS
   closeModal();
-    }
+}
 // ======================
 // RENDER RESERVATION TABLE
 // ======================
