@@ -13,22 +13,16 @@ for (let i = 101; i <= 167; i++) {
 
 
 // ======================
-// LOGIN FUNCTION
+// LOGIN
 // ======================
 function login() {
 
   let u = document.getElementById("user").value;
   let p = document.getElementById("pass").value;
 
-  if (!u || !p) {
-    alert("Please enter username and password");
-    return;
-  }
-
   if (u === "admin" && p === "1234") {
 
     localStorage.setItem("loggedIn", "true");
-
     window.location.href = "dashboard.html";
 
   } else {
@@ -38,11 +32,9 @@ function login() {
 
 
 // ======================
-// DASHBOARD UPDATER
+// DASHBOARD UPDATE
 // ======================
 function updateDashboard() {
-
-  if (!rooms || rooms.length === 0) return;
 
   let stats = {
     occupied: 0,
@@ -55,30 +47,16 @@ function updateDashboard() {
 
   rooms.forEach(r => {
 
-    if (!r || !r.status) return;
-
-    switch (r.status) {
-      case "occupied":
-        stats.occupied++;
-        revenue += 1500;
-        break;
-
-      case "available":
-        stats.available++;
-        break;
-
-      case "cleaning":
-        stats.cleaning++;
-        break;
-
-      case "maintenance":
-        stats.maintenance++;
-        break;
+    if (r.status === "occupied") {
+      stats.occupied++;
+      revenue += 1500;
     }
+    else if (r.status === "available") stats.available++;
+    else if (r.status === "cleaning") stats.cleaning++;
+    else if (r.status === "maintenance") stats.maintenance++;
   });
 
-  let total = rooms.length;
-  let occupancy = total ? (stats.occupied / total) * 100 : 0;
+  let occupancy = (stats.occupied / rooms.length) * 100;
 
   const set = (id, val) => {
     let el = document.getElementById(id);
@@ -105,9 +83,9 @@ function showRooms() {
 
     html += `
       <div class="room ${r.status}">
-        <strong>Room ${r.number}</strong> - ${r.status}
+        Room ${r.number} - ${r.status}
         <br>
-        <small>${r.guest ? "Guest: " + r.guest : "No Guest"}</small>
+        ${r.guest ? "Guest: " + r.guest : ""}
         <br>
         <button onclick="bookRoom(${r.number})">Book</button>
       </div>
@@ -132,21 +110,16 @@ function bookRoom(roomNo) {
 
   let room = rooms.find(r => r.number === roomNo);
 
-  if (!room) {
-    alert("Room not found!");
-    return;
-  }
-
-  if (room.status === "occupied") {
-    alert("Room is already occupied!");
+  if (!room || room.status === "occupied") {
+    alert("Room not available!");
     return;
   }
 
   room.status = "occupied";
-  room.guest = name.trim();
+  room.guest = name;
 
   updateDashboard();
   showRooms();
 
-  alert(`Room ${roomNo} booked successfully for ${name}`);
-      }
+  alert("Room booked successfully!");
+}
