@@ -1,1 +1,63 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #eef2f7;
+}
 
+/* SIDEBAR */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background: #1E3A5F;
+  color: white;
+  float: left;
+  padding: 20px;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #2ECC71;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* MAIN */
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* ROOMS GRID */
+.rooms {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.room {
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+/* STATUS COLORS */
+.available { background: #2ECC71; }
+.occupied { background: #E74C3C; }
