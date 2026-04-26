@@ -20,7 +20,7 @@ let rooms = [];
 for (let i = 101; i <= 167; i++) {
   rooms.push({
     number: i,
-    status: "available",
+    status: "available", // available | reserved | occupied
     guest: ""
   });
 }
