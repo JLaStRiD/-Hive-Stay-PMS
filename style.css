@@ -126,7 +126,9 @@ body {
 .occupied {
   background: #E74C3C;
 }
-
+.reserved {
+  background: #F1C40F; /* yellow */
+}
 /* ======================
    MODAL
 ====================== */
