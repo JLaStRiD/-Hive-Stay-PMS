@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #eef2f7;
+}
+
+/* LOGIN */
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #1E3A5F;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+/* DASHBOARD */
+.sidebar {
+  width: 200px;
+  background: #1E3A5F;
+  color: white;
+  height: 100vh;
+  float: left;
+  padding: 20px;
+}
+
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
