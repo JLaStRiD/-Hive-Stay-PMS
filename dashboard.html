@@ -8,7 +8,28 @@
 <body>
 
 <div class="layout">
+<!-- MODAL -->
+<div id="roomModal" class="modal">
 
+  <div class="modal-content">
+
+    <h3>🏨 Room Action</h3>
+
+    <p id="modalRoomText"></p>
+
+    <input id="guestName" placeholder="Enter Guest Name">
+
+    <div class="modal-buttons">
+
+      <button onclick="confirmCheckIn()">Check-In</button>
+      <button onclick="confirmCheckOut()">Check-Out</button>
+      <button onclick="closeModal()">Cancel</button>
+
+    </div>
+
+  </div>
+
+</div>
   <!-- SIDEBAR -->
   <div class="sidebar">
     <h2>🏨 HiveStay PMS</h2>
