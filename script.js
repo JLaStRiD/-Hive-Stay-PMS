@@ -7,10 +7,8 @@ function login() {
   let p = document.getElementById("pass").value;
 
   if (u === "admin" && p === "1234") {
-
     localStorage.setItem("loggedIn", "true");
     window.location.href = "dashboard.html";
-
   } else {
     alert("Wrong credentials");
   }
@@ -39,13 +37,18 @@ function updateDashboard() {
 
   let occ = (occupied / rooms.length) * 100;
 
-  document.getElementById("occ").innerText = Math.round(occ) + "%";
-  document.getElementById("occupied").innerText = occupied;
-  document.getElementById("available").innerText = available;
+  let set = (id, val) => {
+    let el = document.getElementById(id);
+    if (el) el.innerText = val;
+  };
+
+  set("occ", Math.round(occ) + "%");
+  set("occupied", occupied);
+  set("available", available);
 }
 
 // ======================
-// RENDER ROOMS
+// RENDER ROOMS (MAIN CLICK SYSTEM)
 // ======================
 function renderRooms() {
 
@@ -69,19 +72,20 @@ function renderRooms() {
 }
 
 // ======================
-// ROOM ACTION
+// ROOM ACTION (BOOK + CHECKOUT)
 // ======================
 function handleRoom(roomNo) {
 
   let room = rooms.find(r => r.number === roomNo);
+  if (!room) return;
 
   if (room.status === "available") {
 
     let name = prompt("Guest Name:");
-    if (!name) return;
+    if (!name || name.trim() === "") return;
 
     room.status = "occupied";
-    room.guest = name;
+    room.guest = name.trim();
 
   } else {
 
@@ -94,55 +98,18 @@ function handleRoom(roomNo) {
 
   updateDashboard();
   renderRooms();
-  }
-function bookRoom(roomNo) {
+}
 
-  let name = prompt("Enter Guest Name:");
+// ======================
+// INIT (IMPORTANT FIX)
+// ======================
+window.onload = function () {
 
-  if (!name || name.trim() === "") {
-    alert("Guest name is required!");
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
     return;
-  }
-
-  let room = rooms.find(r => r.number === roomNo);
-
-  if (!room) {
-    alert("Room not found!");
-    return;
-  }
-
-  if (room.status === "occupied") {
-    let confirmCheckout = confirm("Room is occupied. Checkout?");
-    
-    if (confirmCheckout) {
-      room.status = "available";
-      room.guest = "";
-    } else {
-      return;
-    }
-
-  } else {
-    room.status = "occupied";
-    room.guest = name.trim();
   }
 
   updateDashboard();
-  showRooms();
-      }
-function showRooms() {
-
-  let html = "<h2>Rooms</h2>";
-
-  rooms.forEach(r => {
-
-    html += `
-      <div class="room ${r.status}" onclick="bookRoom(${r.number})">
-        <strong>Room ${r.number}</strong> - ${r.status}
-        <br>
-        <small>${r.guest ? "Guest: " + r.guest : "No Guest"}</small>
-      </div>
-    `;
-  });
-
-  document.getElementById("main").innerHTML = html;
-}
+  renderRooms();
+};
