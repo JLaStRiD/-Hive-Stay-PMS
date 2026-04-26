@@ -77,3 +77,61 @@ for (let i = 101; i <= 167; i++) {
     alert("Wrong credentials");
   }
 }
+// ======================
+// SHOW ROOMS MODULE
+// ======================
+function showRooms() {
+
+  let html = "<h2>Rooms</h2>";
+
+  rooms.forEach(r => {
+
+    html += `
+      <div class="room ${r.status}">
+        <strong>Room ${r.number}</strong> - ${r.status}
+        <br>
+        <small>${r.guest ? "Guest: " + r.guest : "No Guest"}</small>
+        <br>
+        <button onclick="bookRoom(${r.number})">Book</button>
+      </div>
+    `;
+  });
+
+  document.getElementById("main").innerHTML = html;
+}
+// ======================
+// BOOK ROOM FUNCTION
+// ======================
+function bookRoom(roomNo) {
+
+  let name = prompt("Guest Name:");
+
+  // 🧠 VALIDATION (IMPORTANT)
+  if (!name || name.trim() === "") {
+    alert("Guest name is required!");
+    return;
+  }
+
+  let room = rooms.find(r => r.number === roomNo);
+
+  // 🧠 SAFETY CHECK
+  if (!room) {
+    alert("Room not found!");
+    return;
+  }
+
+  if (room.status === "occupied") {
+    alert("Room is already occupied!");
+    return;
+  }
+
+  // 🟢 UPDATE ROOM
+  room.status = "occupied";
+  room.guest = name.trim();
+
+  // 🧠 UPDATE SYSTEM
+  updateDashboard();
+  showRooms();
+
+  alert(`Room ${roomNo} booked successfully for ${name}`);
+}
