@@ -34,7 +34,7 @@ function updateDashboard() {
   let available = rooms.filter(r => r.status === "available").length;
 
   let occupancy = rooms.length ? (occupied / rooms.length) * 100 : 0;
-
+// 💰 REVENUE LOGIC
   let revenue = occupied * 1500;
 
   setText("occ", Math.round(occupancy) + "%");
