@@ -208,3 +208,15 @@ function renderReservationTable() {
 
   });
 }
+// ======================
+// CALCULATE BILL
+// ======================
+function calculateBill() {
+
+  let rate = 1500;
+  let extra = parseInt(document.getElementById("extraCharge").value) || 0;
+
+  let total = rate + extra;
+
+  document.getElementById("totalBill").innerText = total;
+}
