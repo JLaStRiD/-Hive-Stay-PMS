@@ -1,5 +1,5 @@
 // ======================
-// ROOMS DATA
+// ROOMS DATA (67 ROOMS)
 // ======================
 let rooms = [];
 
@@ -13,29 +13,21 @@ for (let i = 101; i <= 167; i++) {
 
 
 // ======================
-// LOGIN FUNCTION (TOP)
-// ======================
-// ======================
-// ENHANCED LOGIN
+// LOGIN FUNCTION
 // ======================
 function login() {
 
   let u = document.getElementById("user").value;
   let p = document.getElementById("pass").value;
 
-  // 🧠 VALIDATION
   if (!u || !p) {
     alert("Please enter username and password");
     return;
   }
 
-  // 🧠 SIMPLE AUTH CHECK
   if (u === "admin" && p === "1234") {
 
-    // store session (simple demo state)
     localStorage.setItem("loggedIn", "true");
-
-    alert("Login Successful");
 
     window.location.href = "dashboard.html";
 
@@ -44,31 +36,9 @@ function login() {
   }
 }
 
-// ======================
-// DASHBOARD UPDATE
-// ======================
-function updateDashboard() {
-  // logic here
-}
-
 
 // ======================
-// SHOW ROOMS
-// ======================
-function showRooms() {
-  // your room UI
-}
-
-
-// ======================
-// BOOK ROOM
-// ======================
-function bookRoom(roomNo) {
-  // booking logic
-}
-function login() {
-// ======================
-// ENHANCED DASHBOARD ENGINE
+// DASHBOARD UPDATER
 // ======================
 function updateDashboard() {
 
@@ -83,7 +53,6 @@ function updateDashboard() {
 
   let revenue = 0;
 
-  // 🧠 LOOP ALL ROOMS SAFELY
   rooms.forEach(r => {
 
     if (!r || !r.status) return;
@@ -91,7 +60,7 @@ function updateDashboard() {
     switch (r.status) {
       case "occupied":
         stats.occupied++;
-        revenue += 1500; // demo rate per booking
+        revenue += 1500;
         break;
 
       case "available":
@@ -109,9 +78,8 @@ function updateDashboard() {
   });
 
   let total = rooms.length;
-  let occupancy = total > 0 ? (stats.occupied / total) * 100 : 0;
+  let occupancy = total ? (stats.occupied / total) * 100 : 0;
 
-  // 🧠 SAFE UI UPDATES
   const set = (id, val) => {
     let el = document.getElementById(id);
     if (el) el.innerText = val;
@@ -124,45 +92,10 @@ function updateDashboard() {
   set("maintenance", stats.maintenance);
   set("rev", revenue);
 }
-// ======================
-// LOGIN SYSTEM
-// ======================
-function login() {
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
-
-  if (u === "admin" && p === "1234") {
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Wrong credentials");
-  }
-}
 
 
 // ======================
-// ROOM DATA (67 ROOMS)
-// ======================
-let rooms = [];
-
-// GENERATE 67 ROOMS
-for (let i = 101; i <= 167; i++) {
-  rooms.push({
-    number: i,
-    status: "available",
-    guest: ""
-  });
-}  
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
-
-  if (u === "admin" && p === "1234") {
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Wrong credentials");
-  }
-}
-// ======================
-// SHOW ROOMS MODULE
+// SHOW ROOMS
 // ======================
 function showRooms() {
 
@@ -183,14 +116,15 @@ function showRooms() {
 
   document.getElementById("main").innerHTML = html;
 }
+
+
 // ======================
-// BOOK ROOM FUNCTION
+// BOOK ROOM
 // ======================
 function bookRoom(roomNo) {
 
   let name = prompt("Guest Name:");
 
-  // 🧠 VALIDATION (IMPORTANT)
   if (!name || name.trim() === "") {
     alert("Guest name is required!");
     return;
@@ -198,7 +132,6 @@ function bookRoom(roomNo) {
 
   let room = rooms.find(r => r.number === roomNo);
 
-  // 🧠 SAFETY CHECK
   if (!room) {
     alert("Room not found!");
     return;
@@ -209,13 +142,11 @@ function bookRoom(roomNo) {
     return;
   }
 
-  // 🟢 UPDATE ROOM
   room.status = "occupied";
   room.guest = name.trim();
 
-  // 🧠 UPDATE SYSTEM
   updateDashboard();
   showRooms();
 
   alert(`Room ${roomNo} booked successfully for ${name}`);
-}
+      }
