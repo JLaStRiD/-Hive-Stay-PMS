@@ -1,42 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HiveStay PMS</title>
+  <title>HiveStay PMS Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="sidebar">
-  <h2>🏨 HiveStay PMS</h2>
-</div>
+<div class="layout">
 
-<div class="main">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>🏨 HiveStay PMS</h2>
 
-  <h1>Dashboard</h1>
-
-  <div class="cards">
-    <div class="card">Occupancy: <span id="occ">0%</span></div>
-    <div class="card">Occupied: <span id="occupied">0</span></div>
-    <div class="card">Available: <span id="available">0</span></div>
+    <div class="menu">
+      <div onclick="renderRooms()">🏠 Dashboard</div>
+      <div>🛏 Rooms</div>
+      <div>📅 Reservations</div>
+      <div>💰 Billing</div>
+      <div>📊 Reports</div>
+      <div>⚙ Settings</div>
+    </div>
   </div>
 
-  <h2>Rooms</h2>
-  <div id="roomsContainer" class="rooms"></div>
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <h3>Dashboard</h3>
+      <div>Admin 👤</div>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="cards">
+
+      <div class="card">
+        🛏 Occupancy <br>
+        <span id="occ">0%</span>
+      </div>
+
+      <div class="card">
+        💰 Revenue <br>
+        ₱<span id="rev">0</span>
+      </div>
+
+      <div class="card">
+        👥 Guests <br>
+        <span id="occupied">0</span>
+      </div>
+
+      <div class="card">
+        🟢 Available <br>
+        <span id="available">0</span>
+      </div>
+
+    </div>
+
+    <!-- ROOM SECTION -->
+    <h3 style="margin-top:20px;">🏨 Room Status</h3>
+    <div id="roomsContainer" class="room-grid"></div>
+
+  </div>
 
 </div>
 
 <script src="script.js"></script>
-
-<!-- PROTECTION + LOAD -->
-<script>
-  if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "index.html";
-  }
-
-  updateDashboard();
-  renderRooms();
-</script>
 
 </body>
 </html>
