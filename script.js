@@ -95,3 +95,54 @@ function handleRoom(roomNo) {
   updateDashboard();
   renderRooms();
   }
+function bookRoom(roomNo) {
+
+  let name = prompt("Enter Guest Name:");
+
+  if (!name || name.trim() === "") {
+    alert("Guest name is required!");
+    return;
+  }
+
+  let room = rooms.find(r => r.number === roomNo);
+
+  if (!room) {
+    alert("Room not found!");
+    return;
+  }
+
+  if (room.status === "occupied") {
+    let confirmCheckout = confirm("Room is occupied. Checkout?");
+    
+    if (confirmCheckout) {
+      room.status = "available";
+      room.guest = "";
+    } else {
+      return;
+    }
+
+  } else {
+    room.status = "occupied";
+    room.guest = name.trim();
+  }
+
+  updateDashboard();
+  showRooms();
+      }
+function showRooms() {
+
+  let html = "<h2>Rooms</h2>";
+
+  rooms.forEach(r => {
+
+    html += `
+      <div class="room ${r.status}" onclick="bookRoom(${r.number})">
+        <strong>Room ${r.number}</strong> - ${r.status}
+        <br>
+        <small>${r.guest ? "Guest: " + r.guest : "No Guest"}</small>
+      </div>
+    `;
+  });
+
+  document.getElementById("main").innerHTML = html;
+}
