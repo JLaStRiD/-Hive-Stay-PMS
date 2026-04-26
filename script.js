@@ -43,7 +43,7 @@ function updateDashboard() {
   setText("available", available);
   setText("rev", revenue);
 }
-
+}
 // helper
 function setText(id, value) {
   let el = document.getElementById(id);
