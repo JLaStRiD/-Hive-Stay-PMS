@@ -18,7 +18,19 @@
       <p id="modalRoomText"></p>
 
       <input id="guestName" placeholder="Enter Guest Name">
+<div class="billing-box">
 
+  <p>Room Rate: ₱<span id="roomRate">1500</span></p>
+
+  <p>Extra Charges: ₱
+    <input id="extraCharge" type="number" value="0">
+  </p>
+
+  <hr>
+
+  <p><strong>Total: ₱<span id="totalBill">1500</span></strong></p>
+
+</div>
       <div class="modal-buttons">
 
         <button onclick="confirmCheckIn()">Check-In</button>
