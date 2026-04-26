@@ -186,3 +186,30 @@ body {
 .modal-buttons button:hover {
   opacity: 0.9;
                               }
+/* ======================
+   RESERVATION TABLE
+====================== */
+.res-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.res-table th,
+.res-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.res-table th {
+  background: #1E3A5F;
+  color: white;
+}
+
+.res-table tr:hover {
+  background: #f5f5f5;
+     }
