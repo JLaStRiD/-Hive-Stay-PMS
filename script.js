@@ -1,21 +1,19 @@
 // ======================
-// LOGIN
+// AUTH CHECK (INIT GUARD)
 // ======================
-function login() {
+window.onload = function () {
 
-  let u = document.getElementById("user").value;
-  let p = document.getElementById("pass").value;
-
-  if (u === "admin" && p === "1234") {
-    localStorage.setItem("loggedIn", "true");
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Wrong credentials");
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+    return;
   }
-}
+
+  updateDashboard();
+  renderRooms();
+};
 
 // ======================
-// ROOMS DATA
+// ROOMS DATA (67 ROOMS)
 // ======================
 let rooms = [];
 
@@ -28,27 +26,28 @@ for (let i = 101; i <= 167; i++) {
 }
 
 // ======================
-// DASHBOARD
+// DASHBOARD UPDATE
 // ======================
 function updateDashboard() {
 
   let occupied = rooms.filter(r => r.status === "occupied").length;
   let available = rooms.filter(r => r.status === "available").length;
 
-  let occ = rooms.length ? (occupied / rooms.length) * 100 : 0;
+  let occupancy = rooms.length ? (occupied / rooms.length) * 100 : 0;
 
-  let set = (id, val) => {
-    let el = document.getElementById(id);
-    if (el) el.innerText = val;
-  };
+  setText("occ", Math.round(occupancy) + "%");
+  setText("occupied", occupied);
+  setText("available", available);
+}
 
-  set("occ", Math.round(occ) + "%");
-  set("occupied", occupied);
-  set("available", available);
+// helper
+function setText(id, value) {
+  let el = document.getElementById(id);
+  if (el) el.innerText = value;
 }
 
 // ======================
-// RENDER ROOMS
+// RENDER ROOMS GRID
 // ======================
 function renderRooms() {
 
@@ -57,47 +56,62 @@ function renderRooms() {
 
   container.innerHTML = "";
 
-  rooms.forEach(r => {
+  rooms.forEach(room => {
 
     let div = document.createElement("div");
-    div.className = "room " + r.status;
+    div.className = "room " + room.status;
 
     div.innerHTML = `
-      <strong>${r.number}</strong><br>
-      <small>${r.guest || "No Guest"}</small>
+      <strong>${room.number}</strong><br>
+      <small>${room.guest || "Available"}</small>
     `;
 
-    div.onclick = () => handleRoom(r.number);
+    div.onclick = () => openRoomModal(room.number);
 
     container.appendChild(div);
   });
 }
 
 // ======================
-// MODAL SYSTEM ONLY (FINAL)
+// MODAL STATE
 // ======================
 let selectedRoom = null;
 
-function handleRoom(roomNo) {
+// ======================
+// OPEN MODAL
+// ======================
+function openRoomModal(roomNo) {
 
   selectedRoom = rooms.find(r => r.number === roomNo);
   if (!selectedRoom) return;
 
   document.getElementById("roomModal").style.display = "block";
   document.getElementById("modalRoomText").innerText =
-    "Room " + selectedRoom.number + " (" + selectedRoom.status + ")";
-}
+    `Room ${selectedRoom.number} - ${selectedRoom.status}`;
 
-function closeModal() {
-  document.getElementById("roomModal").style.display = "none";
   document.getElementById("guestName").value = "";
 }
 
+// ======================
+// CLOSE MODAL
+// ======================
+function closeModal() {
+  document.getElementById("roomModal").style.display = "none";
+}
+
+// ======================
+// CHECK-IN
+// ======================
 function confirmCheckIn() {
 
   let name = document.getElementById("guestName").value;
 
-  if (!name || name.trim() === "") return;
+  if (!name || name.trim() === "") {
+    alert("Please enter guest name");
+    return;
+  }
+
+  if (!selectedRoom) return;
 
   if (selectedRoom.status === "available") {
     selectedRoom.status = "occupied";
@@ -109,6 +123,9 @@ function confirmCheckIn() {
   }
 }
 
+// ======================
+// CHECK-OUT
+// ======================
 function confirmCheckOut() {
 
   if (!selectedRoom) return;
@@ -122,18 +139,4 @@ function confirmCheckOut() {
     renderRooms();
     closeModal();
   }
-}
-
-// ======================
-// INIT (ONLY ONE)
-// ======================
-window.onload = function () {
-
-  if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "index.html";
-    return;
-  }
-
-  updateDashboard();
-  renderRooms();
-};
+      }
