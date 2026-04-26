@@ -213,3 +213,16 @@ body {
 .res-table tr:hover {
   background: #f5f5f5;
      }
+/* ======================
+   BILLING BOX
+====================== */
+.billing-box {
+  margin-top: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.billing-box input {
+  width: 80px;
+  padding: 5px;
+}
