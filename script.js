@@ -8,21 +8,33 @@ window.onload = function () {
     return;
   }
 
+  init();
+};
+
+// ======================
+// INIT SYSTEM
+// ======================
+function init() {
+  generateRooms();
   updateDashboard();
   renderRooms();
-};
+}
 
 // ======================
 // ROOMS DATA (67 ROOMS)
 // ======================
 let rooms = [];
 
-for (let i = 101; i <= 167; i++) {
-  rooms.push({
-    number: i,
-    status: "available", // available | reserved | occupied
-    guest: ""
-  });
+function generateRooms() {
+  rooms = [];
+
+  for (let i = 101; i <= 167; i++) {
+    rooms.push({
+      number: i,
+      status: "available", // available | reserved | occupied
+      guest: ""
+    });
+  }
 }
 
 // ======================
@@ -32,10 +44,10 @@ function updateDashboard() {
 
   let occupied = rooms.filter(r => r.status === "occupied").length;
   let available = rooms.filter(r => r.status === "available").length;
+  let reserved = rooms.filter(r => r.status === "reserved").length;
 
   let occupancy = rooms.length ? (occupied / rooms.length) * 100 : 0;
 
-  // 💰 Revenue
   let revenue = occupied * 1500;
 
   setText("occ", Math.round(occupancy) + "%");
@@ -44,30 +56,33 @@ function updateDashboard() {
   setText("rev", revenue);
 }
 
-// helper
+// ======================
+// SAFE SET TEXT
+// ======================
 function setText(id, value) {
-  let el = document.getElementById(id);
+  const el = document.getElementById(id);
   if (el) el.innerText = value;
 }
 
 // ======================
-// RENDER ROOMS GRID
+// RENDER ROOMS
 // ======================
 function renderRooms() {
 
-  let container = document.getElementById("roomsContainer");
+  const container = document.getElementById("roomsContainer");
   if (!container) return;
 
   container.innerHTML = "";
 
   rooms.forEach(room => {
 
-    let div = document.createElement("div");
-    div.className = "room " + room.status;
+    const div = document.createElement("div");
+
+    div.className = `room ${room.status}`;
 
     div.innerHTML = `
       <strong>${room.number}</strong><br>
-      <small>${room.guest || "Available"}</small>
+      <small>${room.guest || room.status}</small>
     `;
 
     div.onclick = () => openRoomModal(room.number);
@@ -109,21 +124,19 @@ function closeModal() {
 // ======================
 function confirmCheckIn() {
 
-  let name = document.getElementById("guestName").value;
-
   if (!selectedRoom) return;
 
-  if (!name || name.trim() === "") {
+  const name = document.getElementById("guestName").value.trim();
+
+  if (!name) {
     alert("Please enter guest name");
     return;
   }
 
   selectedRoom.status = "occupied";
-  selectedRoom.guest = name.trim();
+  selectedRoom.guest = name;
 
-  updateDashboard();
-  renderRooms();
-  closeModal();
+  refresh();
 }
 
 // ======================
@@ -136,9 +149,7 @@ function confirmCheckOut() {
   selectedRoom.status = "available";
   selectedRoom.guest = "";
 
-  updateDashboard();
-  renderRooms();
-  closeModal();
+  refresh();
 }
 
 // ======================
@@ -146,19 +157,26 @@ function confirmCheckOut() {
 // ======================
 function reserveRoom() {
 
-  let name = document.getElementById("guestName").value;
-
   if (!selectedRoom) return;
 
-  if (!name || name.trim() === "") {
+  const name = document.getElementById("guestName").value.trim();
+
+  if (!name) {
     alert("Please enter guest name");
     return;
   }
 
   selectedRoom.status = "reserved";
-  selectedRoom.guest = name.trim();
+  selectedRoom.guest = name;
 
+  refresh();
+}
+
+// ======================
+// CENTRAL REFRESH (IMPORTANT IMPROVEMENT)
+// ======================
+function refresh() {
   updateDashboard();
   renderRooms();
   closeModal();
-}
+    }
