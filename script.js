@@ -113,8 +113,63 @@ window.onload = function () {
   updateDashboard();
   renderRooms();
 };
-window.onload = function () {
+let selectedRoom = null;
 
+// OPEN MODAL
+function handleRoom(roomNo) {
+
+  selectedRoom = rooms.find(r => r.number === roomNo);
+  if (!selectedRoom) return;
+
+  document.getElementById("roomModal").style.display = "block";
+  document.getElementById("modalRoomText").innerText =
+    "Room " + selectedRoom.number + " (" + selectedRoom.status + ")";
+}
+
+// CLOSE MODAL
+function closeModal() {
+  document.getElementById("roomModal").style.display = "none";
+  document.getElementById("guestName").value = "";
+}
+
+// CHECK-IN
+function confirmCheckIn() {
+
+  let name = document.getElementById("guestName").value;
+
+  if (!name || name.trim() === "") {
+    alert("Please enter guest name");
+    return;
+  }
+
+  if (selectedRoom.status === "available") {
+
+    selectedRoom.status = "occupied";
+    selectedRoom.guest = name.trim();
+
+    updateDashboard();
+    renderRooms();
+
+    closeModal();
+  }
+}
+
+// CHECK-OUT
+function confirmCheckOut() {
+
+  if (!selectedRoom) return;
+
+  if (selectedRoom.status === "occupied") {
+
+    selectedRoom.status = "available";
+    selectedRoom.guest = "";
+
+    updateDashboard();
+    renderRooms();
+
+    closeModal();
+  }
+                            }
   if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "index.html";
     return;
