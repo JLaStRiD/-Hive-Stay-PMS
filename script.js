@@ -15,17 +15,34 @@ for (let i = 101; i <= 167; i++) {
 // ======================
 // LOGIN FUNCTION (TOP)
 // ======================
+// ======================
+// ENHANCED LOGIN
+// ======================
 function login() {
+
   let u = document.getElementById("user").value;
   let p = document.getElementById("pass").value;
 
+  // 🧠 VALIDATION
+  if (!u || !p) {
+    alert("Please enter username and password");
+    return;
+  }
+
+  // 🧠 SIMPLE AUTH CHECK
   if (u === "admin" && p === "1234") {
+
+    // store session (simple demo state)
+    localStorage.setItem("loggedIn", "true");
+
+    alert("Login Successful");
+
     window.location.href = "dashboard.html";
+
   } else {
     alert("Wrong credentials");
   }
 }
-
 
 // ======================
 // DASHBOARD UPDATE
