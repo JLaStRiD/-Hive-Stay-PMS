@@ -20,7 +20,7 @@ body {
   width: 300px;
 }
 
-/* DASHBOARD */
+/* SIDEBAR */
 .sidebar {
   width: 200px;
   background: #1E3A5F;
@@ -30,18 +30,35 @@ body {
   padding: 20px;
 }
 
+/* MAIN */
 .main {
   margin-left: 220px;
   padding: 20px;
 }
 
+/* CARDS */
 .cards {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .card {
   background: white;
   padding: 15px;
   border-radius: 10px;
+  min-width: 150px;
 }
+
+/* ROOMS */
+.room {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 8px;
+  color: white;
+}
+
+.available { background: #2ecc71; }
+.occupied { background: #e74c3c; }
+.cleaning { background: #f1c40f; color: black; }
+.maintenance { background: #7f8c8d; }
