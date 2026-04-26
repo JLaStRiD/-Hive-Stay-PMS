@@ -113,3 +113,13 @@ window.onload = function () {
   updateDashboard();
   renderRooms();
 };
+window.onload = function () {
+
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+    return;
+  }
+
+  updateDashboard();
+  renderRooms();
+};
