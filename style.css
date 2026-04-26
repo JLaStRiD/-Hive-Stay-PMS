@@ -19,10 +19,11 @@ body {
 }
 
 .login-box {
-  background: white;
+  background: #ffffff;
   padding: 30px;
   border-radius: 10px;
   width: 300px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 /* ======================
@@ -37,9 +38,9 @@ body {
 ====================== */
 .sidebar {
   width: 220px;
-  background: #1E3A5F;
-  color: white;
   height: 100vh;
+  background: #1E3A5F;
+  color: #ffffff;
   padding: 20px;
 }
 
@@ -48,10 +49,11 @@ body {
   margin: 5px 0;
   cursor: pointer;
   border-radius: 6px;
+  transition: 0.2s;
 }
 
 .menu div:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
 }
 
 /* ======================
@@ -68,9 +70,11 @@ body {
 .topbar {
   display: flex;
   justify-content: space-between;
-  background: white;
+  align-items: center;
+  background: #ffffff;
   padding: 15px;
   border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 /* ======================
@@ -84,10 +88,11 @@ body {
 }
 
 .card {
-  background: white;
+  background: #ffffff;
   padding: 15px;
   border-radius: 10px;
   font-weight: bold;
+  text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
@@ -97,7 +102,7 @@ body {
 .room-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
+  gap: 10px;
   margin-top: 15px;
 }
 
@@ -105,30 +110,36 @@ body {
    ROOM BOX
 ====================== */
 .room {
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
-  color: white;
-  transition: 0.2s;
+  color: #ffffff;
   font-size: 14px;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .room:hover {
   transform: scale(1.05);
+  opacity: 0.9;
 }
 
-/* STATUS COLORS */
+/* ======================
+   STATUS COLORS
+====================== */
 .available {
-  background: #2ECC71;
+  background: #2ECC71; /* Green */
 }
 
 .occupied {
-  background: #E74C3C;
+  background: #E74C3C; /* Red */
 }
+
 .reserved {
-  background: #F1C40F;
+  background: #F1C40F; /* Yellow */
+  color: #000; /* better readability */
 }
+
 /* ======================
    MODAL
 ====================== */
@@ -143,12 +154,13 @@ body {
 }
 
 .modal-content {
-  background: white;
+  background: #ffffff;
   width: 320px;
   margin: 12% auto;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .modal-content input {
@@ -159,14 +171,18 @@ body {
   border-radius: 6px;
 }
 
+/* ======================
+   MODAL BUTTONS
+====================== */
 .modal-buttons button {
   margin: 5px;
   padding: 8px 12px;
   cursor: pointer;
   border: none;
   border-radius: 6px;
+  transition: 0.2s;
 }
 
 .modal-buttons button:hover {
   opacity: 0.9;
-}
+                              }
