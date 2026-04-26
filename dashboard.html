@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HiveStay PMS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>🏨 HiveStay PMS</h2>
+  <button onclick="renderRooms()">Rooms</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <h1>Dashboard</h1>
+
+  <div class="cards">
+    <div class="card">Occupancy: <span id="occ">0%</span></div>
+    <div class="card">Occupied: <span id="occupied">0</span></div>
+    <div class="card">Available: <span id="available">0</span></div>
+  </div>
+
+  <h2>Rooms</h2>
+  <div id="roomsContainer" class="rooms"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+// SIMPLE PROTECTION
+if (localStorage.getItem("loggedIn") !== "true") {
+  window.location.href = "index.html";
+}
+
+// LOAD SYSTEM
+updateDashboard();
+renderRooms();
+</script>
+
+</body>
+</html>
